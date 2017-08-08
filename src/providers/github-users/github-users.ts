@@ -22,7 +22,19 @@ githubApiUrl = 'https://api.github.com';
  // Load all github users
 
     load(): Observable<User[]> {
+
       return this.http.get(`${this.githubApiUrl}/users`)
               .map(res => <User[]>res.json());
     }
+// Get github user by providing login(username)
+    loadDetails(login: string): Observable<User> {
+      return this.http.get(`${this.githubApiUrl}/users/${login}`)
+        .map(res => <User>(res.json()))
+    }
+// Search fot github users
+    searchUsers(searchParam: string): Observable<User[]>{
+      return this.http.get(`${this.githubApiUrl}/search/users?q=${searchParam}`)
+        .map(res => <User[]>(res.json()))
+    }
+
 }
